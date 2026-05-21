@@ -19,18 +19,18 @@ describe("User Model", () => {
   });
 
   // TODO: Test that email must be unique
-    it('requires a unique email', async() =>{
-      await User.create({ username: 'user1', email: "test@mail.com"})
-      await expect(User.create({ username: "user2", email: "test@mail.com"})).rejects.toMatchObject({ code: 11000})
-      })
-      
-      // TODO: Test that username must be unique
-      it('requires a unique username', async () => {
-        await User.create({ username: 'dupuser', email: 'dup1@example.com' })
-        await expect(User.create({ username: 'dupuser', email: 'dup2@example.com' })).rejects.toMatchObject({
-          code: 11000
-        })
-      })
+  it("requires a unique email", async () => {
+    await User.create({ username: "user1", email: "test@mail.com" });
+    await expect(User.create({ username: "user2", email: "test@mail.com" })).rejects.toMatchObject({ code: 11000 });
+  });
+
+  // TODO: Test that username must be unique
+  it("requires a unique username", async () => {
+    await User.create({ username: "dupuser", email: "dup1@example.com" });
+    await expect(User.create({ username: "dupuser", email: "dup2@example.com" })).rejects.toMatchObject({
+      code: 11000,
+    });
+  });
 
   it("should reject invalid email format", async () => {
     await expect(
@@ -39,5 +39,15 @@ describe("User Model", () => {
         email: "not-an-email",
       }),
     ).rejects.toThrow(/invalid email format/i);
+  });
+
+  it("should reject invalid profileImage URL", async () => {
+    await expect(
+      User.create({
+        username: "invalidimageuser",
+        email: "invalidimage@test.com",
+        profileImage: "not-a-url",
+      }),
+    ).rejects.toThrow(/invalid profileImage url/i);
   });
 });
