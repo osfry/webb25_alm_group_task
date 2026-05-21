@@ -16,6 +16,10 @@ const userSchema = new mongoose.Schema(
     profileImage: {
       type: String,
       required: false,
+      validate: {
+        validator: (value) => !value || /^https?:\/\/[^\s/$.?#].[^\s]*$/i.test(value),
+        message: "Invalid profileImage URL",
+      },
     },
     // TODO: Add profileImage field
   },
