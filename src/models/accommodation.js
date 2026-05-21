@@ -15,15 +15,15 @@ const accommodationSchema = new mongoose.Schema(
       required: true,
     },
     zip: {
-      type: String,
+      type: Number,
       required: true,
     },
     rent: {
-      type: String,
+      type: Number,
       required: true,
     },
     room: {
-      type: String,
+      type: Number,
       required: true,
     },
     userId: {
@@ -35,4 +35,4 @@ const accommodationSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-module.exports = mongoose.model("Accommodation", accommodationSchema);
+module.exports = mongoose.models.Accommodation || mongoose.model("Accommodation", accommodationSchema);
