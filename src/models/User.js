@@ -5,14 +5,20 @@ const userSchema = new mongoose.Schema(
     username: {
       type: String,
       required: true,
+      unique: true,
     },
     email: {
       type: String,
       required: true,
+      unique: true,
+    },
+    profileImage: {
+      type: String,
+      required: false,
     },
     // TODO: Add profileImage field
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 module.exports = mongoose.model("User", userSchema);
