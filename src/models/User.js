@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const Accommodation = require('./accommodation')
 const userSchema = new mongoose.Schema(
   {
     username: {
@@ -22,8 +22,14 @@ const userSchema = new mongoose.Schema(
       },
     },
     // TODO: Add profileImage field
+    
   },
   { timestamps: true },
 );
+
+userSchema.pre("findOneAndDelete", async function (next) {
+  await Accommodation.deleteMany({ userId: this.getQuery()["_id"] });
+  next();
+});
 
 module.exports = mongoose.model("User", userSchema);
