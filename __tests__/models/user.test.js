@@ -1,6 +1,6 @@
-require("../test-setup");
-const { describe, it, expect } = require("vitest");
-const User = require("../../src/models/User");
+import "../test-setup";
+import { describe, it, expect } from "vitest";
+import User from "../../src/models/User";
 
 describe("User Model", () => {
   it("should create a user", async () => {
@@ -18,4 +18,13 @@ describe("User Model", () => {
   // TODO: Test that username must be unique
   // TODO: Test that email format is validated
   // TODO: Test that profileImage is a valid URL
+
+  it("should reject invalid email format", async () => {
+    await expect(
+      User.create({
+        username: "invalidemailuser",
+        email: "not-an-email",
+      }),
+    ).rejects.toThrow(/invalid email format/i);
+  });
 });
