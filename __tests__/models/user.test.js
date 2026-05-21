@@ -18,4 +18,13 @@ describe("User Model", () => {
   // TODO: Test that username must be unique
   // TODO: Test that email format is validated
   // TODO: Test that profileImage is a valid URL
+
+  it("should reject invalid email format", async () => {
+    await expect(
+      User.create({
+        username: "invalidemailuser",
+        email: "not-an-email",
+      }),
+    ).rejects.toThrow(/invalid email format/i);
+  });
 });
